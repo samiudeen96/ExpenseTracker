@@ -44,6 +44,18 @@ const CardDetails = ({ item, openInfoModal }) => {
 
                     {item.image ? <img className='w-5 h-5' src={item.image} alt={item.image} /> : <CiImageOn className='w-5 h-5' />}
                 </div>
+                {/* <div className='bg-background h-10 w-10 flex items-center justify-center rounded-full'>
+                    {item.image ? (
+                        item.image.startsWith('http') ? (
+                            <img className='w-5 h-5' src={item.image} alt="emoji" />
+                        ) : (
+                            <span className='text-xl'>{item.image}</span>
+                        )
+                    ) : (
+                        <CiImageOn className='w-5 h-5' />
+                    )}
+                </div> */}
+
                 <div>
                     <p className='text-sm'>{item.resource}</p>
                     {/* <p className='text-xs text_primary'>{extractedDate(item)}</p> */}
@@ -59,7 +71,7 @@ const CardDetails = ({ item, openInfoModal }) => {
                 </div>
 
                 {
-                    path.pathname!== "/dashboard/home" && (
+                    path.pathname !== "/dashboard/home" && (
                         <button
                             className='hidden group-hover:block'
                             onClick={() => openInfoModal(item.id)}

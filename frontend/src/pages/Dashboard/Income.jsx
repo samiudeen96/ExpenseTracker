@@ -8,6 +8,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import InfoModal from '../../components/InfoModal';
 import { CiImageOn } from "react-icons/ci";
 import CardDetails from '../../components/CardDetails';
+import CustomLineChart from "../../components/charts/CustomLineChart"
 
 
 
@@ -40,6 +41,11 @@ const Income = () => {
           <button className='button_secondary' onClick={() => openInputModal()}><FaPlus /> Add Income</button>
         </div>
         <p className='text_primary mt-2 sm:mt-0'>Track your earnings over time and analyze your income trends.</p>
+
+        <div className='mt-5'>
+          <CustomLineChart data={data} />
+        </div>
+
       </div>
 
 

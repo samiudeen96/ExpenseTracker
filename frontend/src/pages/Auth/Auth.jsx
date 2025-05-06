@@ -9,8 +9,8 @@ const Auth = () => {
 
   return (
     <div className=" min-h-screen min-w-screen flex items-center justify-center">
-      <div className="sm:w-6/12 md:w-6/12  flex items-center flex-wrap">
-        <div className="flex-1/2">
+      <div className="min-[1080px]:w-8/12  grid grid-cols-2 max-[1080px]:grid-cols-1">
+        <div className="flex items-center justify-between">
           <div className="flex flex-col justify-center items-center gap-2 p-5 text-center">
             <img className="w-20 h-20" src={line_chart} alt="" />
             <h2 className="text-lg font-semibold">Expense Tracker</h2>
@@ -20,7 +20,7 @@ const Auth = () => {
             </p>
           </div>
         </div>
-        <div className="flex-1/2 shadow-sm p-10 rounded-md bg-white">
+        <div className="sm:shadow-sm sm:p-10 p-5 rounded-md bg-white">
           <div className="flex border-2 border-[#785bf8] rounded-md overflow-hidden p-[2px]">
             {tabHeader.map((item, index) => (
               <button

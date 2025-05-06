@@ -8,12 +8,12 @@ const InputModal = () => {
 
     const onCloseHandler = () => {
         setModal(false);
-    } 
+    }
 
     return (
         <>
             <div className="fixed inset-0 bg-[#00000047] bg-opacity-50 flex justify-center items-center z-50">
-                <div className="bg-white  rounded-md shadow-sm relative m-3">
+                <div className="bg-white  rounded-md shadow-sm relative w-full min-[600px]:w-8/12 min-[1080px]:w-4/12 m-5">
                     <div className='flex justify-between items-center border-b-2 border-background py-3'>
                         <h2 className=" font-semibold mx-5">{modalFormFields.modalName}</h2>
                         <IoIosClose onClick={() => onCloseHandler()} className='w-8 h-8 cursor-pointer mx-2' />
@@ -31,6 +31,7 @@ const InputModal = () => {
                                     })
                                 }
                             />
+
 
                             {/* </div> */}
 

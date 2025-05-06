@@ -79,4 +79,11 @@
     font-size: 14px;
     color: var(--color-muted);
   }
+
+  emoji-picker {
+    --emoji-font-family: 'Noto Color Emoji', sans-serif;
+  }
+  
 }
+
+

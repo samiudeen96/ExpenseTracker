@@ -18,7 +18,7 @@ const Sidebar = () => {
     // <div className="bg-white h-full w-2/12 fixed shadow-sm">
     <div className="w-64 bg-white border border-r border-gray-200/50 sticky top-0 z-20 h-[100vh]">
       <div className="border-b border-background px-5 py-4">
-        <h2 className="text-lg text-primary text-center font-medium">Expense Tracker</h2>
+        <h2 className="text-lg text-primary font-medium">Expense Tracker</h2>
       </div>
       <div className="p-5">
         <div className="flex flex-col items-center pt-5">
