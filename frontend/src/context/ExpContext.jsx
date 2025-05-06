@@ -37,17 +37,17 @@ const ExpContextProvider = ({ children }) => {
 
   const [showSidebar, setShowSidebar] = useState(false);
 
-  useEffect(() => {
-    axios.interceptors.response.use(null, (error) => {
-      if (error.response?.status === 401) {
-        toast.error("Session expired, please log in again.");
-        localStorage.removeItem("token");
-        setToken("");
-        navigate("/");
-      }
-      return Promise.reject(error);
-    });
-  }, [navigate]);
+  // useEffect(() => {
+  //   axios.interceptors.response.use(null, (error) => {
+  //     if (error.response?.status === 401) {
+  //       toast.error("Session expired, please log in again.");
+  //       localStorage.removeItem("token");
+  //       setToken("");
+  //       navigate("/");
+  //     }
+  //     return Promise.reject(error);
+  //   });
+  // }, [navigate]);
 
   // Get input from modals Income and Expense
 
