@@ -1,40 +1,36 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
 
-// Auth
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
-
 // Pages
-import Home from "./pages/Dashboard/Home";
-import Income from "./pages/Dashboard/Income";
-import Expense from "./pages/Dashboard/Expense";
+import Auth from "./pages/Auth/Auth";
+
+import { Toaster } from 'react-hot-toast';
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   return (
     <>
-      <Router>
+    <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
         <Routes>
           <Route path="/" element={<Root />} />
 
           {/* Auth */}
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/signup" exact element={<Signup />} />
+          <Route path="/auth" element={<Auth />} />
 
           {/* Pages */}
-          <Route path="/dashboard" exact element={<Home />} />
-          <Route path="/income" exact element={<Income />} />
-          <Route path="/expense" exact element={<Expense />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard/*" element={<Dashboard />} />
+
         </Routes>
-      </Router>
     </>
   );
 }
-
 export default App;
 
 const Root = () => {
@@ -43,8 +39,8 @@ const Root = () => {
 
   // Redirected to dashboard if authenticated, otherwise to login
   return isAuthenticated ? (
-    <Navigate to={"/dashboard"} />
+    <Navigate to={"/dashboard/home"} />
   ) : (
-    <Navigate to={"/login"} />
+    <Navigate to={"/auth"} />
   );
 };
