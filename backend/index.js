@@ -14,6 +14,12 @@ app.use(express.json());
 
 app.use(cors());
 
+
+app.get("/", (req, res, next) => {
+  return res.send("Api Working");
+});
+
+
 // Routes
 // User Route
 app.use("/api/user", userRouter);
