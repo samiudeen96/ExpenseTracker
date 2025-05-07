@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { GrLogout } from "react-icons/gr";
 import InfoModal from "./InfoModal";
 import Avatar from "./Avatar";
+import line_chart from "../assets/line_chart.svg";
 
 
 const Sidebar = () => {
@@ -17,8 +18,12 @@ const Sidebar = () => {
   return (
     // <div className="bg-white h-full w-2/12 fixed shadow-sm">
     <div className="w-64 bg-white border border-r border-gray-200/50 sticky top-0 z-20 h-[100vh]">
-      <div className="border-b border-background px-5 py-4">
+      {/* <div className="shadow-sm px-5 py-4">
         <h2 className="text-lg text-primary font-medium">Expense Tracker</h2>
+      </div> */}
+      <div className='flex items-center gap-2 shadow-sm px-5 py-4'>
+        <img className="w-7 h-7" src={line_chart} alt="" />
+        <h2 className='font-medium text-lg text-primary'>Expense Tracker</h2>
       </div>
       <div className="p-5">
         <div className="flex flex-col items-center pt-5">
@@ -46,7 +51,7 @@ const Sidebar = () => {
           })}
         </div>
 
-        
+
         {/* <div
           className={`flex gap-3 items-center hover:text-white hover:bg-primary px-5 py-3 rounded-md cursor-pointer`}
         >
