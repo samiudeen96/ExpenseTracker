@@ -6,9 +6,10 @@ import Income from "./Income";
 import Expense from "./Expense";
 import Header from "../../components/Header";
 import { ExpContext } from "../../context/ExpContext";
+import InfoModal from "../../components/InfoModal";
 
 const Dashboard = () => {
-    const { showSidebar, setShowSidebar } = useContext(ExpContext)
+    const { showSidebar, setShowSidebar, infoModal } = useContext(ExpContext)
     return (
         <div className="flex">
             {/* Desktop Sidebar */}
@@ -45,6 +46,7 @@ const Dashboard = () => {
                     <Sidebar setShowSidebar={setShowSidebar} />
                 </div>
             </div>
+            {infoModal && <InfoModal />}
         </div>
     );
 }

@@ -8,7 +8,7 @@ import Avatar from "./Avatar";
 
 
 const Sidebar = () => {
-  const { userDetails, menuHandler, infoModal, openInfoModal, setShowSidebar } = useContext(ExpContext)
+  const { userDetails, menuHandler, openInfoModal, setShowSidebar } = useContext(ExpContext)
   const location = useLocation();
   //   const { modalOpenHandler, modal, income, infoModal, openInfoModal } = useContext(ExpContext);
 
@@ -46,7 +46,7 @@ const Sidebar = () => {
           })}
         </div>
 
-        {infoModal && <InfoModal />}
+        
         {/* <div
           className={`flex gap-3 items-center hover:text-white hover:bg-primary px-5 py-3 rounded-md cursor-pointer`}
         >

@@ -3,6 +3,7 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import Sidebar from './Sidebar'; 1
 import { IoClose } from "react-icons/io5";
 import { ExpContext } from '../context/ExpContext';
+import line_chart from "../assets/line_chart.svg";
 
 const Header = () => {
     const { showSidebar, setShowSidebar } = useContext(ExpContext)
@@ -22,7 +23,10 @@ const Header = () => {
     return (
         <>
             <div className='flex items-center justify-between gap-5 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] py-4 px-5  shadow-sm'>
-                <h2 className='font-medium text-lg text-primary'>Expense Tracker</h2>
+                <div className='flex items-center gap-2'>
+                    <img className="w-7 h-7" src={line_chart} alt="" />
+                    <h2 className='font-medium text-lg text-primary'>Expense Tracker</h2>
+                </div>
                 <div className='relative'>
 
                     {
@@ -35,9 +39,7 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Mobile Sidebar Overlay */}
 
-            
         </>
     );
 };
