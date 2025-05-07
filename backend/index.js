@@ -34,7 +34,7 @@ app.use("/api/expense", expenseRoute);
 // Dashboard Route
 app.use('/api/dashboard', dashboardRoute)
 
-const port = process.env.DB_PORT;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);

@@ -197,6 +197,7 @@ const ExpContextProvider = ({ children }) => {
 
         label3: "Date",
         name3: 'date',
+        placeholder3: "dd/mm/yyyy",
       }
 
       setModalFormData({
@@ -360,7 +361,7 @@ const ExpContextProvider = ({ children }) => {
   const menuHandler = (item) => {
     if (item.name === "Logout") {
       setInfoModal(true)
-
+      setShowSidebar(false);
       setInfoContent({
         text: "Are you sure you want to log out?",
         buttonName: "Logout",

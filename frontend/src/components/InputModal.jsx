@@ -67,6 +67,7 @@ const InputModal = () => {
                                     id={modalFormFields.name3}
                                     type="date"
                                     className="p-2 w-full bg-background rounded-md focus:outline-none"
+                                    placeholder=''
                                     name={modalFormFields.name3}
                                     value={modalFormData.date}
                                     onChange={modalInputChangeHandler}
