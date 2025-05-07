@@ -21,7 +21,7 @@ const Auth = () => {
           </div>
         </div>
         <div className="sm:shadow-sm sm:p-10 p-5 rounded-md bg-white">
-          <div className="flex border-2 border-[#785bf8] rounded-md overflow-hidden p-[2px]">
+          <div className="flex border-2 h-13 border-[#785bf8] rounded-md overflow-hidden p-[2px]">
             {tabHeader.map((item, index) => (
               <button
                 key={index}

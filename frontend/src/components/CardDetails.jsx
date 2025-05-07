@@ -63,7 +63,7 @@ const CardDetails = ({ item, openInfoModal }) => {
                 </div>
 
                 {/* Mobile/Tablet Swipe Delete */}
-                {showDelete && (
+                {showDelete && path.pathname !== "/dashboard/home" && (
                     <button
                         className='block sm:hidden'
                         onClick={() => openInfoModal(item.id)}

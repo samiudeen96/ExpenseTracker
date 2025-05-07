@@ -13,7 +13,7 @@ const Signup = () => {
             <input
               id="name"
               type="text"
-              className="p-2 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
+              className="p-2 h-13 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
               placeholder="Enter your name"
               name="name"
               value={formData.name}
@@ -26,7 +26,7 @@ const Signup = () => {
             <input
               id="email"
               type="email"
-              className="p-2 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
+              className="p-2 h-13 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
               placeholder="Enter your email"
               name="email"
               value={formData.email}
@@ -39,7 +39,7 @@ const Signup = () => {
             <input
               id="password"
               type="password"
-              className="p-2 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
+              className="p-2 h-13 w-full border-2 border-slate-200 rounded-md focus:outline-none focus:border-[#785bf8]"
               placeholder="Enter your password"
               name="password"
               value={formData.password}
@@ -48,7 +48,7 @@ const Signup = () => {
           </div>
         </div>
 
-        <button type="submit" className="button_primary w-full mt-6">
+        <button type="submit" className="button_primary h-13 w-full mt-6">
           Signup
         </button>
 
