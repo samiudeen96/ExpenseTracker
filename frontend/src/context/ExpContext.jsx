@@ -48,19 +48,15 @@ const ExpContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setLoding(true)
     if (token) {
       getUserInfo();
       getTotalAmount();
     }
-    setLoding(false)
   }, [token]);
 
   useEffect(() => {
     if (token) {
-      setLoding(true)
       getDataList();
-      setLoding(false)
     }
   }, [token, path.pathname]);
 
@@ -102,12 +98,15 @@ const ExpContextProvider = ({ children }) => {
       }
 
       if (tab === "Login") {
+        navigate("/dashboard/loading");
         setLoding(true)
         const user = {
           email: formData.email,
           password: formData.password,
         };
+
         const response = await axios.post(`${backendUrl}/api/user/login`, user);
+
         console.log(response.data);
         console.log(response.data.token);
         const newToken = response.data.token;
@@ -115,7 +114,7 @@ const ExpContextProvider = ({ children }) => {
         setToken(newToken);
         console.log("Login token: ", newToken);
         setFormData(initialFormData);
-        
+
         navigate("/dashboard/home");
         setLoding(false);
       }

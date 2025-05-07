@@ -5,7 +5,7 @@ import Signup from "./Signup";
 import { ExpContext } from "../../context/ExpContext";
 
 const Auth = () => {
-  const { tab, setTab } = useContext(ExpContext);
+  const { tab, setTab  } = useContext(ExpContext);
 
   return (
     <div className=" min-h-screen min-w-screen flex items-center justify-center">
@@ -25,11 +25,10 @@ const Auth = () => {
             {tabHeader.map((item, index) => (
               <button
                 key={index}
-                className={`button_primary flex-1  ${
-                  item.name === tab
+                className={`button_primary flex-1  ${item.name === tab
                     ? "hover:bg-[#674de0] transition"
                     : "text-black bg-white"
-                }`}
+                  }`}
                 onClick={() => setTab(item.name)}
               >
                 {item.name}
