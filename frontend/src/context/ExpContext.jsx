@@ -25,7 +25,7 @@ const ExpContextProvider = ({ children }) => {
     display_picture: "",
   };
 
-  const [loading, setLoding] = useState(null);
+  const [loading, setLoding] = useState(false);
 
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
@@ -102,6 +102,7 @@ const ExpContextProvider = ({ children }) => {
       }
 
       if (tab === "Login") {
+        setLoding(true)
         const user = {
           email: formData.email,
           password: formData.password,
@@ -114,7 +115,9 @@ const ExpContextProvider = ({ children }) => {
         setToken(newToken);
         console.log("Login token: ", newToken);
         setFormData(initialFormData);
+        
         navigate("/dashboard/home");
+        setLoding(false);
       }
     } catch (error) {
       toast.error(error.response.data.message);
