@@ -25,7 +25,7 @@ const ExpContextProvider = ({ children }) => {
     display_picture: "",
   };
 
-  const [loading, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
@@ -98,26 +98,32 @@ const ExpContextProvider = ({ children }) => {
       }
 
       if (tab === "Login") {
-        navigate("/dashboard/loading");
-        setLoding(true)
-        const user = {
-          email: formData.email,
-          password: formData.password,
-        };
+        setLoading(true);
 
-        const response = await axios.post(`${backendUrl}/api/user/login`, user);
+        try {
+          const user = {
+            email: formData.email,
+            password: formData.password,
+          };
 
-        console.log(response.data);
-        console.log(response.data.token);
-        const newToken = response.data.token;
-        localStorage.setItem("token", newToken);
-        setToken(newToken);
-        console.log("Login token: ", newToken);
-        setFormData(initialFormData);
+          const response = await axios.post(`${backendUrl}/api/user/login`, user);
+          const newToken = response.data.token;
+          localStorage.setItem("token", newToken);
+          setToken(newToken);
+          setFormData(initialFormData);
 
-        navigate("/dashboard/home");
-        setLoding(false);
+          // Wait 1 second to show loading screen
+          setTimeout(() => {
+            navigate("/dashboard/home");
+            setLoading(false); // ✅ Set loading to false after navigating
+          }, 1000);
+        } catch (error) {
+          toast.error("Login failed");
+          setLoading(false); // ✅ Set loading to false if there's an error
+        }
       }
+
+
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -444,7 +450,7 @@ const ExpContextProvider = ({ children }) => {
     amount,
     path,
     showSidebar, setShowSidebar,
-    loading, setLoding
+    loading
 
   };
 
