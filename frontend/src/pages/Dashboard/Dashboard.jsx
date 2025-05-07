@@ -7,7 +7,6 @@ import Expense from "./Expense";
 import Header from "../../components/Header";
 import { ExpContext } from "../../context/ExpContext";
 import InfoModal from "../../components/InfoModal";
-import LoadingWindow from "../../components/LoadingWindow";
 
 const Dashboard = () => {
     const { showSidebar, setShowSidebar, infoModal } = useContext(ExpContext)
@@ -32,7 +31,7 @@ const Dashboard = () => {
                         <Route path="income" element={<Income />} />
                         <Route path="expense" element={<Expense />} />
 
-                        <Route path="loading" element={<LoadingWindow />} />
+                        
                     </Routes>
                 </div>
             </div>

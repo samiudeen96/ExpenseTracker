@@ -9,25 +9,27 @@ import Auth from "./pages/Auth/Auth";
 
 import { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/Dashboard/Dashboard";
+import LoadingWindow from "./components/LoadingWindow";
 
 function App() {
   return (
     <>
-    <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
-        <Routes>
-          <Route path="/" element={<Root />} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <Routes>
+        <Route path="/" element={<Root />} />
 
-          {/* Auth */}
-          <Route path="/auth" element={<Auth />} />
+        {/* Auth */}
+        <Route path="/auth" element={<Auth />} />
 
-          {/* Pages */}
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          <Route path="/dashboard/*" element={<Dashboard />} />
+        {/* Pages */}
+        <Route path="/dashboard/*" element={<Dashboard />} />
 
-        </Routes>
+        <Route path="loading" element={<LoadingWindow />} />
+
+      </Routes>
     </>
   );
 }
