@@ -72,7 +72,7 @@ const ExpContextProvider = ({ children }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       if (tab === "Signup") {
         const newUser = {
@@ -98,7 +98,6 @@ const ExpContextProvider = ({ children }) => {
       }
 
       if (tab === "Login") {
-        setLoading(true);
 
         try {
           const user = {
@@ -112,17 +111,14 @@ const ExpContextProvider = ({ children }) => {
           setToken(newToken);
           setFormData(initialFormData);
 
-          // Wait 1 second to show loading screen
-          setTimeout(() => {
-            navigate("/dashboard/home");
-            setLoading(false); // ✅ Set loading to false after navigating
-          }, 1000);
+          // Wait 1 second to show loading screen (optional)
+          navigate("/dashboard/home");
+          setTimeout(() => setLoading(false), 1000); // 500ms delay
+
         } catch (error) {
           toast.error("Login failed");
-          setLoading(false); // ✅ Set loading to false if there's an error
         }
       }
-
 
     } catch (error) {
       toast.error(error.response.data.message);
@@ -411,9 +407,9 @@ const ExpContextProvider = ({ children }) => {
           balance: total.totalBalance || 0,
           income: total.totalIncome || 0,
           expense: total.totalExpense || 0,
-          latestTransaction: latestTransactions,
-          lastThirtyDaysExpense: lastThirtyDaysExpenses,
-          lastSixtyDaysIncome: lastSixtyDaysIncomes
+          latestTransaction: latestTransactions || [],
+          lastThirtyDaysExpense: lastThirtyDaysExpenses || [],
+          lastSixtyDaysIncome: lastSixtyDaysIncomes || []
         })
       }
     } catch (error) {

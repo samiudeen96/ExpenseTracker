@@ -9,7 +9,7 @@ import Auth from "./pages/Auth/Auth";
 
 import { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/Dashboard/Dashboard";
-import LoadingWindow from "./components/LoadingWindow";
+// import LoadingWindow from "./components/LoadingWindow";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
         {/* Pages */}
         <Route path="/dashboard/*" element={<Dashboard />} />
 
-        <Route path="loading" element={<LoadingWindow />} />
+        {/* <Route path="loading" element={<LoadingWindow />} /> */}
 
       </Routes>
     </>
