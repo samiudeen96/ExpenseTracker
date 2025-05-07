@@ -21,7 +21,7 @@ const Header = () => {
 
     return (
         <>
-            <div className='flex items-center justify-between gap-5 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] py-4 px-5 sticky top-0 z-30 shadow-sm'>
+            <div className='flex items-center justify-between gap-5 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] py-4 px-5  shadow-sm'>
                 <h2 className='font-medium text-lg text-primary'>Expense Tracker</h2>
                 <div className='relative'>
 

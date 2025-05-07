@@ -18,7 +18,7 @@ const Dashboard = () => {
 
             {/* Mobile Header */}
             <div className="grow">
-                <div className="max-[1080px]:block hidden">
+                <div className="max-[1080px]:block hidden sticky top-0 z-30">
                     <Header setShowSidebar={setShowSidebar} />
                 </div>
 
