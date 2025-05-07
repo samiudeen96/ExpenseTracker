@@ -7,22 +7,28 @@ import Expense from "./Expense";
 import Header from "../../components/Header";
 import { ExpContext } from "../../context/ExpContext";
 import InfoModal from "../../components/InfoModal";
+import LoadingWindow from "../../components/LoadingWindow";
 
 const Dashboard = () => {
-    const { showSidebar, setShowSidebar, infoModal } = useContext(ExpContext)
-    return (
+    const { showSidebar, setShowSidebar, infoModal, loading, setLoding } = useContext(ExpContext)
+
+    return loading ? (
+        <LoadingWindow />
+    ) : (
         <div className="flex">
             {/* Desktop Sidebar */}
             <div className="max-[1080px]:hidden">
                 <Sidebar />
             </div>
 
-            {/* Mobile Header */}
+            {/* Main Content Area */}
             <div className="grow">
+                {/* Mobile Header */}
                 <div className="max-[1080px]:block hidden sticky top-0 z-30">
                     <Header setShowSidebar={setShowSidebar} />
                 </div>
 
+                {/* Page Content */}
                 <div className="m-5">
                     <Routes>
                         <Route path="home" element={<Home />} />
@@ -34,21 +40,24 @@ const Dashboard = () => {
 
             {/* Mobile Sidebar Overlay */}
             <div
-                className={`fixed inset-0 z-50 transition-opacity duration-300 ${showSidebar ? "bg-transparent bg-opacity-60" : "pointer-events-none opacity-0"
-                    }`}
+                className={`fixed inset-0 z-50 transition-opacity duration-300 ${showSidebar ? "bg-transparent bg-opacity-60" : "pointer-events-none opacity-0"}`}
                 onClick={() => setShowSidebar(false)}
             >
                 <div
-                    className={`fixed top-0 left-0 h-ful transition-transform duration-300 ease-in-out transform ${showSidebar ? "translate-x-0" : "-translate-x-full"
-                        }`}
-                    onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside sidebar
+                    className={`fixed top-0 left-0 h-full transition-transform duration-300 ease-in-out transform ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}
+                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the sidebar
                 >
                     <Sidebar setShowSidebar={setShowSidebar} />
                 </div>
             </div>
+
+            {/* Info Modal */}
             {infoModal && <InfoModal />}
         </div>
     );
+
+
+
 }
 
 export default Dashboard

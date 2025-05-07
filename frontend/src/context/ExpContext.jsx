@@ -58,6 +58,9 @@ const ExpContextProvider = ({ children }) => {
     }
   }, [token, path.pathname]);
 
+  
+const [loading, setLoding] = useState(null);
+
 
   // Handler
   const onChangeHandler = (e) => {
@@ -99,6 +102,7 @@ const ExpContextProvider = ({ children }) => {
         };
 
         const response = await axios.post(`${backendUrl}/api/user/login`, user);
+        setLoding(true)
         console.log(response.data);
         console.log(response.data.token);
 
@@ -107,6 +111,7 @@ const ExpContextProvider = ({ children }) => {
         setToken(newToken);
         console.log("Login token: ", newToken);
         setFormData(initialFormData);
+        setLoding(false)
         navigate("/dashboard/home");
       }
     } catch (error) {
@@ -412,7 +417,6 @@ const ExpContextProvider = ({ children }) => {
   }
 
 
-
   const value = {
     tab,
     setTab,
@@ -440,6 +444,7 @@ const ExpContextProvider = ({ children }) => {
     amount,
     path,
     showSidebar, setShowSidebar,
+    loading, setLoding
 
   };
 
