@@ -18,7 +18,7 @@ const userRegister = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Please fill in all required fields",
+        message: "Please fill in all the required fields.",
       });
     }
 
@@ -84,6 +84,13 @@ const login = async (req, res) => {
 
   try {
     const existingUser = await getUserByEmail(email);
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill in all the required fields.",
+      });
+    }
 
     if (!existingUser) {
       return res.status(404).json({

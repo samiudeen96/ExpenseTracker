@@ -26,6 +26,8 @@ const ExpContextProvider = ({ children }) => {
   };
 
   const [loading, setLoading] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+
 
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
@@ -73,8 +75,11 @@ const ExpContextProvider = ({ children }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      if (tab === "Signup") {
+
+
+    if (tab === "Signup") {
+      try {
+        setSpinner(true); // show spinner
         const newUser = {
           name: formData.name,
           email: formData.email,
@@ -93,35 +98,38 @@ const ExpContextProvider = ({ children }) => {
           toast.success("Successfully registered!");
           setFormData(initialFormData);
           setTab("Login");
-        } else {
+
         }
+      } catch (error) {
+        toast.error(error.response.data.message)
+      } finally {
+        setSpinner(false);
       }
 
-      if (tab === "Login") {
+    }
 
-        try {
-          const user = {
-            email: formData.email,
-            password: formData.password,
-          };
+    if (tab === "Login") {
 
-          const response = await axios.post(`${backendUrl}/api/user/login`, user);
-          const newToken = response.data.token;
-          localStorage.setItem("token", newToken);
-          setToken(newToken);
-          setFormData(initialFormData);
+      try {
+        const user = {
+          email: formData.email,
+          password: formData.password,
+        };
 
-          // Wait 1 second to show loading screen (optional)
-          navigate("/dashboard/home");
-          setTimeout(() => setLoading(false), 2000); // 500ms delay
+        const response = await axios.post(`${backendUrl}/api/user/login`, user);
+        const newToken = response.data.token;
+        localStorage.setItem("token", newToken);
+        setToken(newToken);
+        setFormData(initialFormData);
 
-        } catch (error) {
-          toast.error("Login failed");
-        }
+        // Wait 1 second to show loading screen (optional)
+        navigate("/dashboard/home");
+        setTimeout(() => setLoading(false), 2500); // 500ms delay
+
+      } catch (error) {
+        toast.error(error.response.data.message)
+        setLoading(false);
       }
-
-    } catch (error) {
-      toast.error(error.response.data.message);
     }
   };
 
@@ -445,8 +453,10 @@ const ExpContextProvider = ({ children }) => {
     openInfoModal,
     amount,
     path,
-    showSidebar, setShowSidebar,
-    loading
+    showSidebar,
+    setShowSidebar,
+    loading,
+    spinner
 
   };
 

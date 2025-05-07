@@ -8,9 +8,10 @@ import Header from "../../components/Header";
 import { ExpContext } from "../../context/ExpContext";
 import InfoModal from "../../components/InfoModal";
 import LoadingWindow from "../../components/LoadingWindow";
+import Loading from "../../components/Loading";
 
 const Dashboard = () => {
-    const { showSidebar, setShowSidebar, infoModal, loading } = useContext(ExpContext)
+    const { showSidebar, setShowSidebar, infoModal, loading, spinner } = useContext(ExpContext)
 
     return (
         <>
@@ -54,6 +55,11 @@ const Dashboard = () => {
                     </div>
                     {infoModal && <InfoModal />}
 
+                    {spinner && (
+                        <div className="fixed inset-0 bg-white bg-opacity-60 flex items-center justify-center z-50">
+                            <Loading />
+                        </div>
+                    )}
 
 
                 </div>
