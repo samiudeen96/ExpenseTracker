@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const LoadingWindow = () => {
-    return (
-        <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-lg font-medium text-gray-700">Loading...</p>
-        </div>
-    );
+  return (
+    <div className="h-screen w-full flex items-center justify-center bg-white">
+      <Player
+        autoplay
+        loop
+        src="https://assets10.lottiefiles.com/packages/lf20_3rwasyjy.json" // Replace with your chosen animation URL
+        style={{ height: '300px', width: '300px' }}
+      />
+    </div>
+  );
 };
 
-
-export default LoadingWindow
+export default LoadingWindow;
