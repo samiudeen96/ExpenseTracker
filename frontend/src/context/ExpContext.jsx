@@ -113,7 +113,7 @@ const ExpContextProvider = ({ children }) => {
 
           // Wait 1 second to show loading screen (optional)
           navigate("/dashboard/home");
-          setTimeout(() => setLoading(false), 1000); // 500ms delay
+          setTimeout(() => setLoading(false), 2000); // 500ms delay
 
         } catch (error) {
           toast.error("Login failed");
