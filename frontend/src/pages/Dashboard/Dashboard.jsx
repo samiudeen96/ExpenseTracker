@@ -10,7 +10,7 @@ import InfoModal from "../../components/InfoModal";
 import LoadingWindow from "../../components/LoadingWindow";
 
 const Dashboard = () => {
-    const { showSidebar, setShowSidebar, infoModal, loading, setLoding } = useContext(ExpContext)
+    const { showSidebar, setShowSidebar, infoModal, loading } = useContext(ExpContext)
 
     return loading ? (
         <LoadingWindow />

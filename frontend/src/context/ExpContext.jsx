@@ -25,6 +25,8 @@ const ExpContextProvider = ({ children }) => {
     display_picture: "",
   };
 
+  const [loading, setLoding] = useState(null);
+
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
   const [formData, setFormData] = useState(initialFormData);
@@ -46,20 +48,24 @@ const ExpContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    setLoding(true)
     if (token) {
       getUserInfo();
       getTotalAmount();
     }
+    setLoding(false)
   }, [token]);
 
   useEffect(() => {
     if (token) {
+      setLoding(true)
       getDataList();
+      setLoding(false)
     }
   }, [token, path.pathname]);
 
-  
-const [loading, setLoding] = useState(null);
+
+
 
 
   // Handler
@@ -100,18 +106,14 @@ const [loading, setLoding] = useState(null);
           email: formData.email,
           password: formData.password,
         };
-
         const response = await axios.post(`${backendUrl}/api/user/login`, user);
-        setLoding(true)
         console.log(response.data);
         console.log(response.data.token);
-
         const newToken = response.data.token;
         localStorage.setItem("token", newToken);
         setToken(newToken);
         console.log("Login token: ", newToken);
         setFormData(initialFormData);
-        setLoding(false)
         navigate("/dashboard/home");
       }
     } catch (error) {
@@ -131,10 +133,6 @@ const [loading, setLoding] = useState(null);
       // console.log(userDetails);
     }
   }
-
-
-
-
 
   const [modal, setModal] = useState(false);
   const [modalFormData, setModalFormData] = useState({
