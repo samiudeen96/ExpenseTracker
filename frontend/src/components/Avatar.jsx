@@ -9,14 +9,9 @@ const Avatar = () => {
     if (userLoading || !userInfo) {
         return (
             <div className="flex flex-col items-center pt-5">
-  <div className="h-20 w-20 rounded-full bg-gray-300 animate-pulse"></div>
-  <div className="mt-2 h-4 w-24 bg-gray-300 rounded animate-pulse"></div>
-</div>
-
-
-
-
-
+                <div className="h-20 w-20 rounded-full bg-gray-300 animate-pulse"></div>
+                <div className="mt-2 h-[24px] w-24 bg-gray-300 rounded animate-pulse"></div>
+            </div>
         );
     }
 
