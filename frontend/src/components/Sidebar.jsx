@@ -6,12 +6,15 @@ import { GrLogout } from "react-icons/gr";
 import InfoModal from "./InfoModal";
 import Avatar from "./Avatar";
 import line_chart from "../assets/line_chart.svg";
+import { useQuery } from "@tanstack/react-query";
+import API from "../services/api";
 
 
 const Sidebar = () => {
-  const { userDetails, menuHandler, openInfoModal, setShowSidebar } = useContext(ExpContext)
+  const { userDetails, menuHandler, openInfoModal, setShowSidebar, token } = useContext(ExpContext)
   const location = useLocation();
   //   const { modalOpenHandler, modal, income, infoModal, openInfoModal } = useContext(ExpContext);
+
 
 
 

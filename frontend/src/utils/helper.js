@@ -40,8 +40,8 @@ export const convertedName = (name) => {
   const mergedFirstName = firstWord?.[0]?.toUpperCase() + firstWord?.slice(1) || "";
   const mergedSecondName = secondWord?.[0]?.toUpperCase() + secondWord?.slice(1) || "";
 
-  console.log("First Name:", mergedFirstName);
-  console.log("Second Name:", mergedSecondName || "(none)");
+  // console.log("First Name:", mergedFirstName);
+  // console.log("Second Name:", mergedSecondName || "(none)");
 
   return secondWord
     ? `${mergedFirstName} ${mergedSecondName}`

@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import API from "../services/api";
+import { useQuery } from "@tanstack/react-query"
 
 export const ExpContext = createContext();
 
@@ -51,7 +53,7 @@ const ExpContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      getUserInfo();
+      // getUserInfo();
       getTotalAmount();
     }
   }, [token]);
@@ -63,9 +65,6 @@ const ExpContextProvider = ({ children }) => {
   }, [token, path.pathname]);
 
 
-
-
-
   // Handler
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -74,8 +73,6 @@ const ExpContextProvider = ({ children }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    
-
 
     if (tab === "Signup") {
       try {
@@ -113,7 +110,8 @@ const ExpContextProvider = ({ children }) => {
           password: formData.password,
         };
 
-        const response = await axios.post(`${backendUrl}/api/user/login`, user);
+        // const response = await axios.post(`${backendUrl}/api/user/login`, user);
+        const response = await API.post("/api/user/login", user)
         const newToken = response.data.token;
         localStorage.setItem("token", newToken);
         setToken(newToken);
@@ -122,7 +120,7 @@ const ExpContextProvider = ({ children }) => {
         // Wait 1 second to show loading screen (optional)
         // setTimeout(() => setLoading(false), 2500); // 500ms delay
         navigate("/dashboard/home");
-        
+
 
       } catch (error) {
         toast.error(error.response.data.message)
@@ -131,18 +129,28 @@ const ExpContextProvider = ({ children }) => {
     }
   };
 
-  const getUserInfo = async () => {
-    if (token) {
-      const response = await axios.get(`${backendUrl}/api/user/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`  // 👈 Common convention
-        }
-      });
-      // console.log(response.data.user);
-      setUserDetails(response.data.user);
-      // console.log(userDetails);
-    }
-  }
+  const { data: userInfo, isLoading: userLoading } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: async () => {
+      const response = await API.get('/api/user/profile');
+      return response.data.user;
+    },
+    enabled: !!token,
+  });
+
+  // const getUserInfo = async () => {
+  //   if (token) {
+  //     // const response = await axios.get(`${backendUrl}/api/user/profile`, {
+  //     //   headers: {
+  //     //     Authorization: `Bearer ${token}`
+  //     //   }
+  //     // });
+  //     const response = await API.get("/api/user/profile")
+  //     // console.log(response.data.user);
+  //     setUserDetails(response.data.user);
+  //     // console.log(userDetails);
+  //   }
+  // }
 
   const [modal, setModal] = useState(false);
   const [modalFormData, setModalFormData] = useState({
@@ -227,12 +235,7 @@ const ExpContextProvider = ({ children }) => {
           date: modalFormData.date,
         }
 
-        const response = await axios.post(`${backendUrl}/api/income/add`, incomeData, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-
+        const response = await API.post("/api/income/add", incomeData);
         getDataList();
         console.log(response.data);
         setModal(false);
@@ -454,7 +457,9 @@ const ExpContextProvider = ({ children }) => {
     showSidebar,
     setShowSidebar,
     loading,
-    spinner
+    spinner,
+    userInfo,
+    userLoading
 
   };
 
