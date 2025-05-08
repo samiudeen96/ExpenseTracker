@@ -393,6 +393,7 @@ const ExpContextProvider = ({ children }) => {
   });
 
 
+
   const getTotalAmount = async () => {
     try {
       if (token) {
@@ -403,7 +404,7 @@ const ExpContextProvider = ({ children }) => {
         });
 
         const total = response.data.totalAmt;
-        console.log(response.data);
+        // console.log(response.data);
 
         const latestTransactions = response.data.recentTransactions;
         // console.log(transactions);
@@ -429,6 +430,7 @@ const ExpContextProvider = ({ children }) => {
 
 
   const value = {
+    token,
     tab,
     setTab,
     formData,

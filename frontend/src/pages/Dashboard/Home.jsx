@@ -10,12 +10,15 @@ import { currency, prepareChartData, prepareExpenseBarChartData } from "../../ut
 import CustomBarChart from "../../components/charts/CustomBarChart";
 import { IoArrowForward } from "react-icons/io5";
 import { Link } from "react-router-dom"
+import useDashboardData from "../../hooks/useDashboardData";
+import TotalSkeleton from "../../components/skeleton/TotalSkeleton";
 
 const Home = () => {
-  const { amount } = useContext(ExpContext);
+  const { amount, token } = useContext(ExpContext);
   const [barChartData, setBarChartData] = useState([]);
-
   const [chartData, setChartData] = useState([]);
+
+  const { data: dashboardData, isLoading } = useDashboardData(token)
 
 
 
@@ -25,24 +28,37 @@ const Home = () => {
     // console.log("Data", data);
     const donutChart = prepareChartData(amount.lastSixtyDaysIncome.transaction);
     setChartData(donutChart)
+    // console.log(dashboardData.balance);
+
 
   }, [amount])
 
 
-  const totalData = [
-    { name: "Total Balance", amount: amount.balance },
-    { name: "Total Income", amount: amount.income },
-    { name: "Total Expense", amount: amount.expense }
-  ]
+  const totalData = dashboardData ? [
+    { name: "Total Balance", amount: dashboardData.balance, icon: IoMdCard, color: "bg-primary" },
+    { name: "Total Income", amount: dashboardData.income, icon: LuWallet, color: "bg-orange-400" },
+    { name: "Total Expense", amount: dashboardData.expense, icon: GiReceiveMoney, color: "bg-red-500" }
+  ] : [];
+
 
   const colors = ["#875cf5", "#ff8904", "#fb2c36"]
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-5">
-        <Total Icon={IoMdCard} amount={amount.balance} title="Total Balance" bgColor="bg-primary" />
-        <Total Icon={LuWallet} amount={amount.income} title="Total Income" bgColor="bg-orange-400" />
-        <Total Icon={GiReceiveMoney} amount={amount.expense} title="Total Expense" bgColor="bg-red-500" />
+        {
+          isLoading || !dashboardData
+            ? [...Array(3)].map((_, idx) => <TotalSkeleton key={idx} />)
+            : totalData.map((item, index) => (
+              <Total
+                key={index}
+                Icon={item.icon}
+                amount={item.amount}
+                title={item.name}
+                bgColor={item.color}
+              />
+            ))
+        }
       </div>
 
       <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
