@@ -74,12 +74,11 @@ const ExpContextProvider = ({ children }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    
 
 
     if (tab === "Signup") {
       try {
-        setSpinner(true); // show spinner
         const newUser = {
           name: formData.name,
           email: formData.email,
@@ -102,14 +101,12 @@ const ExpContextProvider = ({ children }) => {
         }
       } catch (error) {
         toast.error(error.response.data.message)
-      } finally {
-        setSpinner(false);
       }
 
     }
 
     if (tab === "Login") {
-
+      // setLoading(true);
       try {
         const user = {
           email: formData.email,
@@ -123,12 +120,13 @@ const ExpContextProvider = ({ children }) => {
         setFormData(initialFormData);
 
         // Wait 1 second to show loading screen (optional)
+        // setTimeout(() => setLoading(false), 2500); // 500ms delay
         navigate("/dashboard/home");
-        setTimeout(() => setLoading(false), 2500); // 500ms delay
+        
 
       } catch (error) {
         toast.error(error.response.data.message)
-        setLoading(false);
+        // setLoading(false);
       }
     }
   };
