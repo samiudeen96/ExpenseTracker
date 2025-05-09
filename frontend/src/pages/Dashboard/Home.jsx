@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 import useDashboardData from "../../hooks/useDashboardData";
 import TotalSkeleton from "../../components/skeleton/TotalSkeleton";
 import CardDetailSkeleton from "../../components/skeleton/CardDetailSkeleton";
+import ChartSkeleton from "../../components/skeleton/ChartSkeleton";
 
 const Home = () => {
   const { amount, token } = useContext(ExpContext);
@@ -64,7 +65,8 @@ const Home = () => {
 
       <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
         <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Recent Transactions</h2>
+          {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md'  /></div> : <h2 className='font-medium'>Recent Transactions</h2> }
+          
           <div className="mt-5 space-y-5">
             { isLoading || !dashboardData
               ? [...Array(5)].map((_, index)=> <CardDetailSkeleton key={index} /> )
@@ -76,15 +78,17 @@ const Home = () => {
 
         </div>
         <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Financial Overview</h2>
+        {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md'  /></div> : <h2 className='font-medium'>Financial Overview</h2> }
           <div className="mt-5 space-y-5">
+            {isLoading || !dashboardData ? <ChartSkeleton /> :
             <CustomPieChart
               data={totalData}
               label="Total Balance"
-              totalAmount={`${currency}${amount.balance}`}
+              totalAmount={`${currency}${dashboardData.balance}`}
               colors={colors}
               showTextAnchor
             />
+          }
           </div>
         </div>
       </div>
