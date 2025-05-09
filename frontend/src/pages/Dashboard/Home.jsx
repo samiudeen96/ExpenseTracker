@@ -82,7 +82,7 @@ const Home = () => {
           )}
       </div>
 
-      {dashboardData?.lastThirtyDaysExpense.transaction.length > 0 && (
+      {dashboardData?.lastThirtyDaysExpense.transaction?.length > 0 && (
         <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
 
           <div className=' bg-white p-5 rounded-md shadow-sm'>
@@ -109,7 +109,7 @@ const Home = () => {
       )}
 
       {
-        dashboardData?.lastSixtyDaysIncome.transaction.length > 0 && (
+        dashboardData?.lastSixtyDaysIncome.transaction?.length > 0 && (
           <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
             <div className=' bg-white p-5 rounded-md shadow-sm'>
               <div className="flex justify-between items-center">

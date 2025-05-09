@@ -13,7 +13,7 @@ const GlobalLoading = () => {
     if (isFetching > 0) {
       setShow(true);
     } else {
-      const timeout = setTimeout(() => setShow(false), 300); // Delay for fade-out
+      const timeout = setTimeout(() => setShow(false),0); // Delay for fade-out
       return () => clearTimeout(timeout);
     }
   }, [isFetching]);

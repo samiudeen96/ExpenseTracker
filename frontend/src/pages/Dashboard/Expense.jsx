@@ -35,7 +35,7 @@ const Expense = () => {
         </div>
         <p className='text_primary mt-2 sm:mt-0'>Track your spending over time and analyze your expense trends.</p>
 
-        {dataList.length > 0 && (
+        {dataList?.length > 0 && (
           <div className='mt-5'>
             <CustomLineChart data={dataList} />
           </div>
@@ -44,7 +44,7 @@ const Expense = () => {
 
 
 
-      {dataList.length > 0 && (
+      {dataList?.length > 0 && (
       <div className='bg-white p-5 mt-5 rounded-md overflow-hidden shadow-sm'>
         <h2 className='font-medium'>Expense Categories</h2>
         <div className='grid sm:grid-cols-2 gap-5 mt-5'>
