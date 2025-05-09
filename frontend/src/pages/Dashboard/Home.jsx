@@ -30,7 +30,7 @@ const Home = () => {
     const donutChart = prepareChartData(amount.lastSixtyDaysIncome.transaction);
     setChartData(donutChart)
     console.log(dashboardData);
-    
+
 
   }, [amount])
 
@@ -40,7 +40,7 @@ const Home = () => {
     { name: "Total Income", amount: dashboardData?.income ?? 0, icon: LuWallet, color: "bg-orange-400" },
     { name: "Total Expense", amount: dashboardData?.expense ?? 0, icon: GiReceiveMoney, color: "bg-red-500" }
   ];
-  
+
 
 
   const colors = ["#875cf5", "#ff8904", "#fb2c36"]
@@ -65,11 +65,11 @@ const Home = () => {
 
       <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
         <div className=' bg-white p-5 rounded-md shadow-sm'>
-          {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md'  /></div> : <h2 className='font-medium'>Recent Transactions</h2> }
-          
+          {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md' /></div> : <h2 className='font-medium'>Recent Transactions</h2>}
+
           <div className="mt-5 space-y-5">
-            { isLoading || !dashboardData
-              ? [...Array(5)].map((_, index)=> <CardDetailSkeleton key={index} /> )
+            {isLoading || !dashboardData
+              ? [...Array(5)].map((_, index) => <CardDetailSkeleton key={index} />)
               : dashboardData.latestTransaction?.map((item, index) => (
                 <CardDetails key={index} item={item} />
               ))
@@ -78,17 +78,17 @@ const Home = () => {
 
         </div>
         <div className=' bg-white p-5 rounded-md shadow-sm'>
-        {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md'  /></div> : <h2 className='font-medium'>Financial Overview</h2> }
+          {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-45 h-5 bg-gray-300 rounded-md' /></div> : <h2 className='font-medium'>Financial Overview</h2>}
           <div className="mt-5 space-y-5">
             {isLoading || !dashboardData ? <ChartSkeleton /> :
-            <CustomPieChart
-              data={totalData}
-              label="Total Balance"
-              totalAmount={`${currency}${dashboardData.balance}`}
-              colors={colors}
-              showTextAnchor
-            />
-          }
+              <CustomPieChart
+                data={totalData}
+                label="Total Balance"
+                totalAmount={`${currency}${dashboardData.balance}`}
+                colors={colors}
+                showTextAnchor
+              />
+            }
           </div>
         </div>
       </div>
@@ -96,10 +96,23 @@ const Home = () => {
 
       <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
         <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <div className="flex justify-between items-center">
-            <h2 className='font-medium'>Expenses</h2>
-            <Link to="/dashboard/expense" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
-          </div>
+          {/* <div className="flex justify-between items-center"> */}
+            {/* {isLoading || !dashboardData ? <div className="animate-pulse"><div className='w-25 h-5 bg-gray-300 rounded-md' /></div> : <h2 className='font-medium'>Expenses</h2>}
+            <Link to="/dashboard/expense" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link> */}
+
+          {/* </div> */}
+          {
+            isLoading || !dashboardData
+              ? <div className="flex justify-between items-center animate-pulse">
+                <div className='w-25 h-5 bg-gray-300 rounded-md' />
+                <div className='w-25 h-8 bg-gray-300 rounded-md' />
+              </ div>
+              :
+              <div className="flex justify-between items-center ">
+                <h2 className='font-medium'>Expenses</h2>
+                <Link to="/dashboard/expense" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
+              </ div>
+          }
           <div className="mt-5 space-y-5">
             {
               amount.lastThirtyDaysExpense.transaction?.map((item, index) => (
