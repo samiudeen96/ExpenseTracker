@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import { useQuery } from "@tanstack/react-query"
+import { useCreateData, useDeleteData } from "../hooks/useDataList";
 
 export const ExpContext = createContext();
 
@@ -55,11 +56,11 @@ const ExpContextProvider = ({ children }) => {
   //   }
   // }, [token]);
 
-  useEffect(() => {
-    if (token) {
-      getDataList();
-    }
-  }, [token, path.pathname]);
+  // useEffect(() => {
+  //   if (token) {
+  //     getDataList();
+  //   }
+  // }, [token, path.pathname]);
 
 
   // Handler
@@ -155,152 +156,98 @@ const ExpContextProvider = ({ children }) => {
   });
   const [modalFormFields, setModalFormFields] = useState({})
 
+  const modalConfigs = {
+    [routes.income]: {
+      modalName: "Add Income",
+      label1: "Income Source",
+      name1: "resource",
+      placeholder1: "Freelance, Salary, etc",
+      label2: "Amount",
+      name2: "amount",
+      placeholder2: "0000",
+      label3: "Date",
+      name3: "date"
+    },
+    [routes.expense]: {
+      modalName: "Add Expense",
+      label1: "Category",
+      name1: "resource",
+      placeholder1: "Rent, Groceries, etc",
+      label2: "Amount",
+      name2: "amount",
+      placeholder2: "0000",
+      label3: "Date",
+      name3: "date",
+      placeholder3: "dd/mm/yyyy"
+    }
+  };
 
   const openInputModal = () => {
-    let modalFormConfig = null;
-    if (path.pathname === routes.income) {
-
-      console.log("Clicked from income");
-
-
-      modalFormConfig = {
-
-        modalName: "Add Income",
-
-        label1: "Income Source",
-        name1: 'resource',
-        placeholder1: "Freelance, Salary, etc",
-
-        label2: "Amount",
-        name2: 'amount',
-        placeholder2: "0000",
-
-        label3: "Date",
-        name3: 'date',
-      }
-
-      setModalFormData({
-        resource: '', amount: '', image: '', date: ''
-      })
-    }
-
-    if (path.pathname === routes.expense) {
-      setModal(true);
-      console.log("Clicked from expense");
-
-      modalFormConfig = {
-        modalName: "Add Expense",
-
-        label1: "Category",
-        name1: 'resource',
-        placeholder1: "Rent, Groceries, etc",
-
-        label2: "Amount",
-        name2: 'amount',
-        placeholder2: "0000",
-
-        label3: "Date",
-        name3: 'date',
-        placeholder3: "dd/mm/yyyy",
-      }
-
-      setModalFormData({
-        resource: '', amount: '', image: '', date: ''
-      })
-      // setIncomeForm(expenseFormProp)
-    }
-
-    if (modalFormConfig) {
-      setModalFormFields(modalFormConfig);
+    const config = modalConfigs[path.pathname];
+    if (config) {
+      setModalFormFields(config);
+      setModalFormData({ resource: "", amount: "", image: "", date: "" });
       setModal(true);
     }
-  }
+  };
+
+  const createData = useCreateData();
+  const deleteData = useDeleteData();
 
   const modalInputChangeHandler = (e) => {
     const { name, value } = e.target;
     setModalFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+
   const onModalSubmitHandler = async (e) => {
     e.preventDefault();
+
+    const commonData = {
+      amount: modalFormData.amount,
+      image: modalFormData.image,
+      date: modalFormData.date,
+    }
+
     if (path.pathname === routes.income) {
-      try {
-        const incomeData = {
-          source: modalFormData.resource,
-          amount: modalFormData.amount,
-          image: modalFormData.image,
-          date: modalFormData.date,
-        }
-
-        const response = await API.post("/api/income/add", incomeData);
-        getDataList();
-        console.log(response.data);
-        setModal(false);
-      } catch (error) {
-        console.log(error.message);
-
+      const newData = {
+        ...commonData,
+        source: modalFormData.resource,
       }
+
+      createData.mutate(
+        { newData, path: path.pathname },
+        {
+          onSuccess: () => {
+            setModal(false);
+            toast.success("Income has successfully added");
+          },
+          onError: () => {
+            toast.error("Fields are empty")
+          }
+        }
+      )
     }
 
     if (path.pathname === routes.expense) {
-      // console.log("expense : ", modalFormData);
-      try {
-        const expenseData = {
-          category: modalFormData.resource,
-          amount: modalFormData.amount,
-          image: modalFormData.image,
-          date: modalFormData.date,
+      const newData = {
+        ...commonData,
+        category: modalFormData.resource
+      }
+
+      createData.mutate(
+        { newData, path: path.pathname },
+        {
+          onSuccess: () => {
+            setModal(false),
+              toast.success("Expense has successfully added")
+          },
+          onError: () => {
+            toast.error("Fields are empty")
+          }
         }
-
-        const response = await axios.post(`${backendUrl}/api/expense/add`, expenseData, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-
-        getDataList();
-        console.log(response.data);
-        setModal(false);
-      } catch (error) {
-        console.log(error);
-
-      }
-
+      )
     }
-  }
-
-  // income properties
-
-  const [data, setData] = useState([]);
-
-  const getDataList = async () => {
-
-    if (path.pathname === routes.income) {
-      if (token) {
-        const response = await axios.get(`${backendUrl}/api/income/list`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        setData(response.data.incomes);
-        console.log(response.data.incomes);
-
-      }
-    }
-
-    if (path.pathname === routes.expense) {
-      if (token) {
-        const response = await axios.get(`${backendUrl}/api/expense/list`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        setData(response.data.expenses);
-        console.log(response.data.expenses);
-
-      }
-    }
-
   }
 
 
@@ -317,18 +264,19 @@ const ExpContextProvider = ({ children }) => {
         text: "Are you sure you want to delete this income?",
         buttonName: "Delete",
         color: "bg-red-500",
-        handler: async function () {
-          try {
-            await axios.delete(`${backendUrl}/api/income/remove/${id}`, {
-              headers: {
-                Authorization: `Bearer ${token}`
+        handler: function () {
+          deleteData.mutate(
+            { path: path.pathname, id },
+            {
+              onSuccess: () => {
+                toast.success("Income has deleted successfully");
+                setInfoModal(false)
+              },
+              onError: () => {
+                toast.error("Something went wrong");
               }
-            })
-            getDataList();
-            setInfoModal(false);
-          } catch (error) {
-            toast.error(error.message)
-          }
+            }
+          )
         }
       })
     }
@@ -341,17 +289,18 @@ const ExpContextProvider = ({ children }) => {
         buttonName: "Delete",
         color: "bg-red-500",
         handler: async function () {
-          try {
-            await axios.delete(`${backendUrl}/api/expense/remove/${id}`, {
-              headers: {
-                Authorization: `Bearer ${token}`
+          deleteData.mutate(
+            { path: path.pathname, id },
+            {
+              onSuccess: () => {
+                toast.success("Expense has deleted successfully");
+                setInfoModal(false)
+              },
+              onError: () => {
+                toast.error("Something went wrong");
               }
-            })
-            getDataList();
-            setInfoModal(false);
-          } catch (error) {
-            toast.error(error.message)
-          }
+            }
+          )
         }
       })
     }
@@ -446,7 +395,7 @@ const ExpContextProvider = ({ children }) => {
     modalInputChangeHandler,
     onModalSubmitHandler,
 
-    data, // info Modal properties
+    // data, // info Modal properties
     infoModal,
     setInfoModal,
     infoContent,

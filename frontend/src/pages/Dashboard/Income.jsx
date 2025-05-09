@@ -9,7 +9,7 @@ import InfoModal from '../../components/InfoModal';
 import { CiImageOn } from "react-icons/ci";
 import CardDetails from '../../components/CardDetails';
 import CustomLineChart from "../../components/charts/CustomLineChart"
-import useDataList from '../../hooks/useDataList';
+import {useDataList} from '../../hooks/useDataList';
 
 
 
@@ -18,6 +18,8 @@ import useDataList from '../../hooks/useDataList';
 const Income = () => {
   const { openInputModal, modal, data, infoModal, openInfoModal, token } = useContext(ExpContext);
   const { data: dataList } = useDataList(token)
+
+  // const handleSubmit
 
   const extractedDate = (item) => {
     const date = new Date(item.date);

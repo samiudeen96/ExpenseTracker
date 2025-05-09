@@ -9,7 +9,7 @@ import InfoModal from '../../components/InfoModal';
 import { CiImageOn } from "react-icons/ci";
 import CardDetails from '../../components/CardDetails';
 import CustomLineChart from '../../components/charts/CustomLineChart';
-import useDataList from '../../hooks/useDataList';
+import { useDataList } from '../../hooks/useDataList';
 
 const Expense = () => {
   const { openInputModal, modal, data, infoModal, openInfoModal, token } = useContext(ExpContext);
