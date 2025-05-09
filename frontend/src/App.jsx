@@ -9,11 +9,13 @@ import Auth from "./pages/Auth/Auth";
 
 import { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/Dashboard/Dashboard";
+import GlobalLoading from "./hooks/GlobalLoading";
 // import LoadingWindow from "./components/LoadingWindow";
 
 function App() {
   return (
     <>
+    <GlobalLoading /> {/* 🔄 Spinner shown during query fetching */}
       <Toaster
         position="top-center"
         reverseOrder={false}
