@@ -10,9 +10,12 @@ import Auth from "./pages/Auth/Auth";
 import { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/Dashboard/Dashboard";
 import GlobalLoading from "./hooks/GlobalLoading";
+import { useContext } from "react";
+import { ExpContext } from "./context/ExpContext";
 // import LoadingWindow from "./components/LoadingWindow";
 
 function App() {
+  const { token } = useContext(ExpContext);
   return (
     <>
     <GlobalLoading /> {/* 🔄 Spinner shown during query fetching */}
@@ -39,7 +42,7 @@ export default App;
 
 const Root = () => {
   // Check if the token is exists or not
-  const isAuthenticated = !!localStorage.getItem("token");
+  const isAuthenticated = !!token
 
   // Redirected to dashboard if authenticated, otherwise to login
   return isAuthenticated ? (
