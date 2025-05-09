@@ -1,15 +1,21 @@
+
+
+
 import { useIsFetching } from '@tanstack/react-query';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useEffect, useState } from 'react';
 
-
 const GlobalLoading = () => {
   const isFetching = useIsFetching();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true); // Start with `true` for initial load
 
   useEffect(() => {
-    if (isFetching > 0) setShow(true);
-    else setTimeout(() => setShow(false), 1000); // slight delay for smooth exit
+    if (isFetching > 0) {
+      setShow(true);
+    } else {
+      const timeout = setTimeout(() => setShow(false), 300); // Delay for fade-out
+      return () => clearTimeout(timeout);
+    }
   }, [isFetching]);
 
   if (!show) return null;
@@ -26,5 +32,5 @@ const GlobalLoading = () => {
   );
 };
 
-
 export default GlobalLoading;
+
