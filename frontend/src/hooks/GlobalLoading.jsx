@@ -2,6 +2,7 @@ import { useIsFetching } from '@tanstack/react-query';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useEffect, useState } from 'react';
 
+
 const GlobalLoading = () => {
   const isFetching = useIsFetching();
   const [show, setShow] = useState(false);
