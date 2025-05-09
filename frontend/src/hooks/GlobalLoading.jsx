@@ -9,7 +9,7 @@ const GlobalLoading = () => {
 
   useEffect(() => {
     if (isFetching > 0) setShow(true);
-    else setTimeout(() => setShow(false), 300); // slight delay for smooth exit
+    else setTimeout(() => setShow(false), 1000); // slight delay for smooth exit
   }, [isFetching]);
 
   if (!show) return null;
