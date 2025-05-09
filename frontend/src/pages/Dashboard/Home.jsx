@@ -68,7 +68,7 @@ const Home = () => {
           <div className="mt-5 space-y-5">
             { isLoading || !dashboardData
               ? [...Array(5)].map((_, index)=> <CardDetailSkeleton key={index} /> )
-              : amount.latestTransaction?.map((item, index) => (
+              : dashboardData.latestTransaction?.map((item, index) => (
                 <CardDetails key={index} item={item} />
               ))
             }
