@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"
 import useDashboardData from "../../hooks/useDashboardData";
 
 const Home = () => {
-  const { amount, token } = useContext(ExpContext);
+  const { token } = useContext(ExpContext);
   const [barChartData, setBarChartData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
@@ -22,15 +22,15 @@ const Home = () => {
 
 
   useEffect(() => {
-    const barChart = prepareExpenseBarChartData(amount.lastThirtyDaysExpense.transaction);
+    const barChart = prepareExpenseBarChartData(dashboardData?.lastThirtyDaysExpense.transaction);
     setBarChartData(barChart)
     // console.log("Data", data);
-    const donutChart = prepareChartData(amount.lastSixtyDaysIncome.transaction);
+    const donutChart = prepareChartData(dashboardData?.lastSixtyDaysIncome.transaction);
     setChartData(donutChart)
     // console.log(dashboardData.balance);
 
 
-  }, [amount])
+  }, [dashboardData])
 
 
   const totalData = dashboardData ? [
@@ -56,7 +56,7 @@ const Home = () => {
           <h2 className='font-medium'>Recent Transactions</h2>
           <div className="mt-5 space-y-5">
             {
-              amount.latestTransaction?.map((item, index) => (
+              dashboardData?.latestTransaction?.map((item, index) => (
                 <CardDetails key={index} item={item} />
               ))
             }
@@ -69,7 +69,7 @@ const Home = () => {
             <CustomPieChart
               data={totalData}
               label="Total Balance"
-              totalAmount={`${currency}${amount.balance}`}
+              totalAmount={`${currency}${dashboardData?.balance}`}
               colors={colors}
               showTextAnchor
             />
@@ -86,7 +86,7 @@ const Home = () => {
           </div>
           <div className="mt-5 space-y-5">
             {
-              amount.lastThirtyDaysExpense.transaction?.map((item, index) => (
+              dashboardData?.lastThirtyDaysExpense.transaction?.map((item, index) => (
                 <CardDetails key={index} item={item} />
               ))
             }
@@ -109,7 +109,7 @@ const Home = () => {
           </div>
           <div className="mt-5 space-y-5">
             {
-              amount.lastSixtyDaysIncome.transaction?.map((item, index) => (
+              dashboardData?.lastSixtyDaysIncome.transaction?.map((item, index) => (
                 <CardDetails key={index} item={item} />
               ))
             }

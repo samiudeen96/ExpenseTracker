@@ -9,7 +9,7 @@ import Auth from "./pages/Auth/Auth";
 
 import { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/Dashboard/Dashboard";
-import GlobalLoading from "./hooks/GlobalLoading";
+import GlobalLoading from "./components/GlobalLoading";
 import { useContext } from "react";
 import { ExpContext } from "./context/ExpContext";
 // import LoadingWindow from "./components/LoadingWindow";

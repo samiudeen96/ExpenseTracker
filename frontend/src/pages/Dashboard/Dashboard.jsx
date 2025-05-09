@@ -7,11 +7,9 @@ import Expense from "./Expense";
 import Header from "../../components/Header";
 import { ExpContext } from "../../context/ExpContext";
 import InfoModal from "../../components/InfoModal";
-import LoadingWindow from "../../components/LoadingWindow";
-import Loading from "../../components/Loading";
 
 const Dashboard = () => {
-    const { showSidebar, setShowSidebar, infoModal, loading, spinner } = useContext(ExpContext)
+    const { showSidebar, setShowSidebar, infoModal } = useContext(ExpContext)
 
     return (
         <>
