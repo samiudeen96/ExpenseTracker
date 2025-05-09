@@ -9,13 +9,15 @@ import InfoModal from '../../components/InfoModal';
 import { CiImageOn } from "react-icons/ci";
 import CardDetails from '../../components/CardDetails';
 import CustomLineChart from "../../components/charts/CustomLineChart"
+import useDataList from '../../hooks/useDataList';
 
 
 
 
 
 const Income = () => {
-  const { openInputModal, modal, data, infoModal, openInfoModal } = useContext(ExpContext);
+  const { openInputModal, modal, data, infoModal, openInfoModal, token } = useContext(ExpContext);
+  const { data: dataList } = useDataList(token)
 
   const extractedDate = (item) => {
     const date = new Date(item.date);
@@ -43,7 +45,7 @@ const Income = () => {
         <p className='text_primary mt-2 sm:mt-0'>Track your earnings over time and analyze your income trends.</p>
 
         <div className='mt-5'>
-          <CustomLineChart data={data} />
+          <CustomLineChart data={dataList} />
         </div>
 
       </div>
@@ -54,7 +56,7 @@ const Income = () => {
       <div className='bg-white p-5 mt-5 rounded-md overflow-hidden shadow-sm'>
         <h2 className='font-medium'>Income Source</h2>
         <div className='grid sm:grid-cols-2 gap-5 mt-5'>
-          {data.map((item, index) =>
+          {dataList?.map((item, index) =>
             <CardDetails key={index} item={item} openInfoModal={openInfoModal} extractedDate={extractedDate} />
           )}
         </div>

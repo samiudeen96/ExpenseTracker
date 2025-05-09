@@ -2,21 +2,30 @@ export const currency = "₹";
 
 export const prepareExpenseBarChartData = (data = []) => {
   const chartData = data.map((item) => ({
-    category: item?.resource,
+    resource: item?.resource,
     amount: item?.amount,
   }));
 
   return chartData;
 };
 
-export const prepareChartData = (data = []) => {
+export const prepareIncomeBarChartData = (data = []) => {
   const chartData = data.map((item) => ({
-    source: item?.resource,
+    resource: item?.resource,
     amount: item?.amount,
   }));
 
   return chartData;
 };
+
+// export const prepareChartData = (data = []) => {
+//   const chartData = data.map((item) => ({
+//     source: item?.resource,
+//     amount: item?.amount,
+//   }));
+
+//   return chartData;
+// };
 
 export const getInitials = (name) => {
   if (!name) return "";

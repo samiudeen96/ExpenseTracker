@@ -6,26 +6,26 @@ import { LuWallet } from "react-icons/lu";
 import { GiReceiveMoney } from "react-icons/gi";
 import CardDetails from "../../components/CardDetails";
 import CustomPieChart from "../../components/charts/CustomPieChart";
-import { currency, prepareChartData, prepareExpenseBarChartData } from "../../utils/helper";
+import { currency, prepareExpenseBarChartData, prepareIncomeBarChartData } from "../../utils/helper";
 import CustomBarChart from "../../components/charts/CustomBarChart";
 import { IoArrowForward } from "react-icons/io5";
 import { Link } from "react-router-dom"
 import useDashboardData from "../../hooks/useDashboardData";
 
 const Home = () => {
-  const { token } = useContext(ExpContext);
-  const [barChartData, setBarChartData] = useState([]);
-  const [chartData, setChartData] = useState([]);
+  const { token } = useContext(ExpContext); 
+  const [expenseBarChart, setExpenseBarChart] = useState([]);
+  const [incomeBarChart, setIncomeBarChart] = useState([]);
 
   const { data: dashboardData } = useDashboardData(token)
 
 
 
   useEffect(() => {
-    const barChart = prepareExpenseBarChartData(dashboardData?.lastThirtyDaysExpense.transaction);
-    setBarChartData(barChart)
-    const donutChart = prepareChartData(dashboardData?.lastSixtyDaysIncome.transaction);
-    setChartData(donutChart)
+    const expenseChart = prepareExpenseBarChartData(dashboardData?.lastThirtyDaysExpense.transaction);
+    setExpenseBarChart(expenseChart)
+    const incomeChart = prepareIncomeBarChartData(dashboardData?.lastSixtyDaysIncome.transaction);
+    setIncomeBarChart(incomeChart)
 
   }, [dashboardData])
 
@@ -93,7 +93,7 @@ const Home = () => {
         <div className=' bg-white p-5 rounded-md shadow-sm'>
           <h2 className='font-medium'>Last 30 Days Expenses</h2>
           <div className="mt-5 space-y-5">
-            <CustomBarChart data={barChartData} />
+            <CustomBarChart data={expenseBarChart} />
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ const Home = () => {
         <div className=' bg-white p-5 rounded-md shadow-sm'>
           <h2 className='font-medium'>Last 60 Days Incomes</h2>
           <div className="mt-5 space-y-5">
-            <CustomBarChart data={chartData} />
+            <CustomBarChart data={incomeBarChart} />
           </div>
         </div>
       </div>

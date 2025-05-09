@@ -27,9 +27,6 @@ const ExpContextProvider = ({ children }) => {
     display_picture: "",
   };
 
-  const [loading, setLoading] = useState(false);
-  const [spinner, setSpinner] = useState(false);
-
 
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
@@ -51,12 +48,12 @@ const ExpContextProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (token) {
-      // getUserInfo();
-      getTotalAmount();
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     // getUserInfo();
+  //     getTotalAmount();
+  //   }
+  // }, [token]);
 
   useEffect(() => {
     if (token) {
@@ -394,43 +391,44 @@ const ExpContextProvider = ({ children }) => {
 
 
 
-  const getTotalAmount = async () => {
-    try {
-      if (token) {
-        const response = await axios.get(`${backendUrl}/api/dashboard/totalAmount`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+  // const getTotalAmount = async () => {
+  //   try {
+  //     if (token) {
+  //       const response = await axios.get(`${backendUrl}/api/dashboard/totalAmount`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`
+  //         }
+  //       });
 
-        const total = response.data.totalAmt;
-        // console.log(response.data);
+  //       const total = response.data.totalAmt;
+  //       // console.log(response.data);
 
-        const latestTransactions = response.data.recentTransactions;
-        // console.log(transactions);
-        const lastThirtyDaysExpenses = response.data.last30DaysExpenses
+  //       const latestTransactions = response.data.recentTransactions;
+  //       // console.log(transactions);
+  //       const lastThirtyDaysExpenses = response.data.last30DaysExpenses
 
-        const lastSixtyDaysIncomes = response.data.last60DaysIncomes
+  //       const lastSixtyDaysIncomes = response.data.last60DaysIncomes
 
 
-        setAmount({
-          balance: total.totalBalance || 0,
-          income: total.totalIncome || 0,
-          expense: total.totalExpense || 0,
-          latestTransaction: latestTransactions || [],
-          lastThirtyDaysExpense: lastThirtyDaysExpenses || [],
-          lastSixtyDaysIncome: lastSixtyDaysIncomes || []
-        })
-      }
-    } catch (error) {
-      console.log(error);
+  //       setAmount({
+  //         balance: total.totalBalance || 0,
+  //         income: total.totalIncome || 0,
+  //         expense: total.totalExpense || 0,
+  //         latestTransaction: latestTransactions || [],
+  //         lastThirtyDaysExpense: lastThirtyDaysExpenses || [],
+  //         lastSixtyDaysIncome: lastSixtyDaysIncomes || []
+  //       })
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
 
-    }
-  }
+  //   }
+  // }
 
 
   const value = {
     token,
+    path,
     tab,
     setTab,
     formData,
@@ -455,11 +453,8 @@ const ExpContextProvider = ({ children }) => {
     setInfoContent,
     openInfoModal,
     amount,
-    path,
     showSidebar,
     setShowSidebar,
-    loading,
-    spinner,
     userInfo,
     userLoading
 
