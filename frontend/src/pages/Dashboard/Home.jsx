@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"
 import useDashboardData from "../../hooks/useDashboardData";
 
 const Home = () => {
-  const { token } = useContext(ExpContext); 
+  const { token } = useContext(ExpContext);
   const [expenseBarChart, setExpenseBarChart] = useState([]);
   const [incomeBarChart, setIncomeBarChart] = useState([]);
 
@@ -49,77 +49,90 @@ const Home = () => {
       </div>
 
       <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Recent Transactions</h2>
-          <div className="mt-5 space-y-5">
-            {
-              dashboardData?.latestTransaction?.map((item, index) => (
-                <CardDetails key={index} item={item} />
-              ))
-            }
-          </div>
+        {
+          dashboardData?.latestTransaction?.length > 0 && (
+            <div className='bg-white p-5 rounded-md shadow-sm'>
+              <h2 className='font-medium'>Recent Transactions</h2>
+              <div className="mt-5 space-y-5">
+                {
+                  dashboardData.latestTransaction.map((item, index) => (
+                    <CardDetails key={index} item={item} />
+                  ))
+                }
+              </div>
+            </div>
+          )
+        }
 
-        </div>
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Financial Overview</h2>
-          <div className="mt-5 space-y-5">
-            <CustomPieChart
-              data={totalData}
-              label="Total Balance"
-              totalAmount={`${currency}${dashboardData?.balance}`}
-              colors={colors}
-              showTextAnchor
-            />
-          </div>
-        </div>
+
+        {
+          dashboardData?.balance > 0 && (
+            <div className=' bg-white p-5 rounded-md shadow-sm'>
+              <h2 className='font-medium'>Financial Overview</h2>
+              <div className="mt-5 space-y-5">
+                <CustomPieChart
+                  data={totalData}
+                  label="Total Balance"
+                  totalAmount={`${currency}${dashboardData?.balance}`}
+                  colors={colors}
+                  showTextAnchor
+                />
+              </div>
+            </div>
+          )}
       </div>
 
+      {dashboardData?.lastThirtyDaysExpense.transaction.length > 0 && (
+        <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
 
-      <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <div className="flex justify-between items-center">
-            <h2 className='font-medium'>Expenses</h2>
-            <Link to="/dashboard/expense" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
+          <div className=' bg-white p-5 rounded-md shadow-sm'>
+            <div className="flex justify-between items-center">
+              <h2 className='font-medium'>Expenses</h2>
+              <Link to="/dashboard/expense" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
+            </div>
+            <div className="mt-5 space-y-5">
+              {
+                dashboardData?.lastThirtyDaysExpense.transaction?.map((item, index) => (
+                  <CardDetails key={index} item={item} />
+                ))
+              }
+            </div>
           </div>
-          <div className="mt-5 space-y-5">
-            {
-              dashboardData?.lastThirtyDaysExpense.transaction?.map((item, index) => (
-                <CardDetails key={index} item={item} />
-              ))
-            }
+
+          <div className=' bg-white p-5 rounded-md shadow-sm'>
+            <h2 className='font-medium'>Last 30 Days Expenses</h2>
+            <div className="mt-5 space-y-5">
+              <CustomBarChart data={expenseBarChart} />
+            </div>
           </div>
         </div>
+      )}
 
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Last 30 Days Expenses</h2>
-          <div className="mt-5 space-y-5">
-            <CustomBarChart data={expenseBarChart} />
-          </div>
-        </div>
-      </div>
+      {
+        dashboardData?.lastSixtyDaysIncome.transaction.length > 0 && (
+          <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
+            <div className=' bg-white p-5 rounded-md shadow-sm'>
+              <div className="flex justify-between items-center">
+                <h2 className='font-medium'>Incomes</h2>
+                <Link to="/dashboard/income" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
+              </div>
+              <div className="mt-5 space-y-5">
+                {
+                  dashboardData?.lastSixtyDaysIncome.transaction?.map((item, index) => (
+                    <CardDetails key={index} item={item} />
+                  ))
+                }
+              </div>
+            </div>
 
-      <div className="mt-5 grid sm:grid-cols-2 grid-cols-1 gap-5">
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <div className="flex justify-between items-center">
-            <h2 className='font-medium'>Incomes</h2>
-            <Link to="/dashboard/income" className="button_tertiary text-text bg-background flex gap-3"><span className="font-medium">See All</span> <IoArrowForward /></Link>
+            <div className=' bg-white p-5 rounded-md shadow-sm'>
+              <h2 className='font-medium'>Last 60 Days Incomes</h2>
+              <div className="mt-5 space-y-5">
+                <CustomBarChart data={incomeBarChart} />
+              </div>
+            </div>
           </div>
-          <div className="mt-5 space-y-5">
-            {
-              dashboardData?.lastSixtyDaysIncome.transaction?.map((item, index) => (
-                <CardDetails key={index} item={item} />
-              ))
-            }
-          </div>
-        </div>
-
-        <div className=' bg-white p-5 rounded-md shadow-sm'>
-          <h2 className='font-medium'>Last 60 Days Incomes</h2>
-          <div className="mt-5 space-y-5">
-            <CustomBarChart data={incomeBarChart} />
-          </div>
-        </div>
-      </div>
+        )}
 
     </>
   );
