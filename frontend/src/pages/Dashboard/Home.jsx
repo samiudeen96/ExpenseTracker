@@ -24,11 +24,8 @@ const Home = () => {
   useEffect(() => {
     const barChart = prepareExpenseBarChartData(dashboardData?.lastThirtyDaysExpense.transaction);
     setBarChartData(barChart)
-    // console.log("Data", data);
     const donutChart = prepareChartData(dashboardData?.lastSixtyDaysIncome.transaction);
     setChartData(donutChart)
-    // console.log(dashboardData.balance);
-
 
   }, [dashboardData])
 
