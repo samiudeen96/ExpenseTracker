@@ -15,10 +15,10 @@ import { ExpContext } from "./context/ExpContext";
 // import LoadingWindow from "./components/LoadingWindow";
 
 function App() {
-  const { token } = useContext(ExpContext);
+
   return (
     <>
-    <GlobalLoading /> {/* 🔄 Spinner shown during query fetching */}
+      <GlobalLoading /> {/* 🔄 Spinner shown during query fetching */}
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -42,6 +42,7 @@ export default App;
 
 const Root = () => {
   // Check if the token is exists or not
+  const { token } = useContext(ExpContext);
   const isAuthenticated = !!token
 
   // Redirected to dashboard if authenticated, otherwise to login
