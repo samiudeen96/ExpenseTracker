@@ -27,7 +27,7 @@ const CardDetails = ({ item, openInfoModal }) => {
     return (
         <div
             {...handlers}
-            className={`relative flex items-center justify-between flex-wrap transition-all duration-300 px-2 py-2 rounded-md group
+            className={`relative flex items-center justify-between flex-wrap transition-all duration-300 px-2 py-1 rounded-md group
                         ${showDelete ? 'bg-red-50' : ''}`}
         >
             <div className='flex flex-wrap gap-3 items-center'>
