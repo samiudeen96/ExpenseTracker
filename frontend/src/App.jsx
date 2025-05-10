@@ -13,6 +13,7 @@ import GlobalLoading from "./components/GlobalLoading";
 import { useContext } from "react";
 import { ExpContext } from "./context/ExpContext";
 // import LoadingWindow from "./components/LoadingWindow";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 
@@ -30,7 +31,9 @@ function App() {
         <Route path="/auth" element={<Auth />} />
 
         {/* Pages */}
-        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>} />
 
         {/* <Route path="loading" element={<LoadingWindow />} /> */}
 
