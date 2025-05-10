@@ -70,6 +70,31 @@ const deleteIncome = async (req, res) => {
   }
 };
 
+// const getIncomeInExcel = async (req, res) => {
+//   const userId = req.user.id;
+
+//   try {
+//     const incomeExcel = await getIncomesByUser(userId);
+
+//     const data = incomeExcel.map((item) => ({
+//       Source: item.resource,
+//       Amount: item.amount,
+//       Date: extractedDate(item.date),
+//     }));
+
+//     const wb = xlsx.utils.book_new();
+//     const ws = xlsx.utils.json_to_sheet(data);
+//     xlsx.utils.book_append_sheet(wb, ws, "income");
+//     xlsx.writeFile(wb, "income_details.xlsx");
+//     res.download("income_details.xlsx");
+//   } catch (error) {
+//     res.status(500).json({ 
+//       success: false,
+//       message: "Server Error",
+//     });
+//   }
+// };
+
 const getIncomeInExcel = async (req, res) => {
   const userId = req.user.id;
 
@@ -85,14 +110,30 @@ const getIncomeInExcel = async (req, res) => {
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "income");
-    xlsx.writeFile(wb, "income_details.xlsx");
-    res.download("income_details.xlsx");
+
+    // Write to buffer instead of file
+    const excelBuffer = xlsx.write(wb, { bookType: 'xlsx', type: 'buffer' });
+
+    // Set headers
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=income_details.xlsx'
+    );
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+
+    // Send buffer
+    res.send(excelBuffer);
   } catch (error) {
+    console.error("Excel export error:", error);
     res.status(500).json({ 
       success: false,
       message: "Server Error",
     });
   }
 };
+
 
 export { addIncome, getIncomes, deleteIncome, getIncomeInExcel };
