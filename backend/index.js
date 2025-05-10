@@ -13,21 +13,31 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors());
 
-const cors = require("cors");
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://expensetracker-samiudeen.vercel.app'
+];
 
-app.use(
-  cors({
-    origin: "https://expensetracker-samiudeen.vercel.app",
-    methods: ["GET"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+
 
 app.get("/", (req, res, next) => {
   return res.send("Api Working");
 });
+
 
 // Routes
 // User Route
@@ -41,7 +51,7 @@ app.use("/api/income", incomeRoute);
 app.use("/api/expense", expenseRoute);
 
 // Dashboard Route
-app.use("/api/dashboard", dashboardRoute);
+app.use('/api/dashboard', dashboardRoute)
 
 const port = process.env.PORT;
 
