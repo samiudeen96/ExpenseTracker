@@ -69,6 +69,31 @@ const deleteExpense = async (req, res) => {
   }
 };
 
+// const getExpenseInExcel = async (req, res) => {
+//   const userId = req.user.id;
+
+//   try {
+//     const expenseExcel = await getExpensesByUser(userId);
+
+//     const data = expenseExcel.map((item) => ({
+//       category: item.resource,
+//       Amount: item.amount,
+//       Date: extractedDate(item.date),
+//     }));
+
+//     const wb = xlsx.utils.book_new();
+//     const ws = xlsx.utils.json_to_sheet(data);
+//     xlsx.utils.book_append_sheet(wb, ws, "expense");
+//     xlsx.writeFile(wb, "expense_details.xlsx");
+//     res.download("expense_details.xlsx");
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: "Server Error",
+//     });
+//   }
+// };
+
 const getExpenseInExcel = async (req, res) => {
   const userId = req.user.id;
 
@@ -77,17 +102,32 @@ const getExpenseInExcel = async (req, res) => {
 
     const data = expenseExcel.map((item) => ({
       category: item.resource,
-      Amount: item.amount,
+      Amount: Number(Number(item.amount).toFixed(0)),
       Date: extractedDate(item.date),
     }));
 
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "expense");
-    xlsx.writeFile(wb, "expense_details.xlsx");
-    res.download("expense_details.xlsx");
+
+    // Write to buffer instead of file
+    const excelBuffer = xlsx.write(wb, { bookType: 'xlsx', type: 'buffer' });
+
+    // Set headers
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=expense_details.xlsx'
+    );
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+
+    // Send buffer
+    res.send(excelBuffer);
   } catch (error) {
-    res.status(500).json({
+    console.error("Excel export error:", error);
+    res.status(500).json({ 
       success: false,
       message: "Server Error",
     });

@@ -103,7 +103,7 @@ const getIncomeInExcel = async (req, res) => {
 
     const data = incomeExcel.map((item) => ({
       Source: item.resource,
-      Amount: item.amount,
+      Amount: Number(Number(item.amount).toFixed(0)),
       Date: extractedDate(item.date),
     }));
 
