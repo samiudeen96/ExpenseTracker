@@ -346,9 +346,6 @@ const ExpContextProvider = ({ children }) => {
         responseType: "blob"
       });
 
-      // const result = path.pathname === routes.income ? response.
-
-      // create url for the blob 
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement("a");
       link.href = url;
@@ -357,7 +354,7 @@ const ExpContextProvider = ({ children }) => {
       link.click();
       link.parentNode.removeChild(link);
       window.URL.revokeObjectURL(url);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(`Error downloading ${excelName} `, error);
       toast.error(`Faild to download ${excelName} details. Please try again later`)

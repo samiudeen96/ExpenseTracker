@@ -13,14 +13,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// app.use(cors());
 
-app.use(cors());
+const cors = require("cors");
 
+app.use(
+  cors({
+    origin: "https://expensetracker-samiudeen.vercel.app",
+    methods: ["GET"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res, next) => {
   return res.send("Api Working");
 });
-
 
 // Routes
 // User Route
@@ -34,7 +41,7 @@ app.use("/api/income", incomeRoute);
 app.use("/api/expense", expenseRoute);
 
 // Dashboard Route
-app.use('/api/dashboard', dashboardRoute)
+app.use("/api/dashboard", dashboardRoute);
 
 const port = process.env.PORT;
 
