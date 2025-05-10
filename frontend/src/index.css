@@ -52,11 +52,10 @@
   }
 
   .button_secondary {
-    color: #ffffff;
     border-radius: 6px;
     padding: 8px 15px;
     cursor: pointer;
-    color: var(--color-primary);
+    /* color: var(--color-primary); */
     font-size: 12px;
     background-color: var(--color-background);
     display: flex;

@@ -75,7 +75,7 @@ const CardDetails = ({ item, openInfoModal }) => {
                 {/* Desktop Hover Delete */}
                 {path.pathname !== "/dashboard/home" && (
                     <button
-                        className='hidden sm:block group-hover:block'
+                        className='hidden group-hover:block'
                         onClick={() => openInfoModal(item.id)}
                     >
                         <RiDeleteBin6Line className='text-red-500' />

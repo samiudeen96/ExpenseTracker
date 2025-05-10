@@ -13,27 +13,18 @@ import API from "../services/api";
 const Sidebar = () => {
   const { userDetails, menuHandler, openInfoModal, setShowSidebar, token } = useContext(ExpContext)
   const location = useLocation();
-  //   const { modalOpenHandler, modal, income, infoModal, openInfoModal } = useContext(ExpContext);
 
 
 
 
   return (
-    // <div className="bg-white h-full w-2/12 fixed shadow-sm">
     <div className="w-64 bg-white border border-r border-gray-200/50 sticky top-0 z-20 h-[100vh]">
-      {/* <div className="shadow-sm px-5 py-4">
-        <h2 className="text-lg text-primary font-medium">Expense Tracker</h2>
-      </div> */}
       <div className='flex items-center gap-2 shadow-sm px-5 py-4'>
         <img className="w-7 h-7" src={line_chart} alt="" />
         <h2 className='font-medium text-lg text-primary'>Expense Tracker</h2>
       </div>
       <div className="p-5">
         <div className="flex flex-col items-center pt-5">
-          {/* <div className="bg-background h-20 w-20 rounded-full">
-            <img className="shadow-sm" src='' alt="" />
-          </div>
-          <p className="mt-3 font-medium">{userDetails.name}</p> */}
           <Avatar />
         </div>
 
@@ -53,14 +44,6 @@ const Sidebar = () => {
             );
           })}
         </div>
-
-
-        {/* <div
-          className={`flex gap-3 items-center hover:text-white hover:bg-primary px-5 py-3 rounded-md cursor-pointer`}
-        >
-          <div className=""><GrLogout className="w-5 h-5" /></div>
-          <div><p>Logout</p></div>
-        </div> */}
       </div>
     </div>
   );

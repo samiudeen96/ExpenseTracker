@@ -10,13 +10,13 @@ import { CiImageOn } from "react-icons/ci";
 import CardDetails from '../../components/CardDetails';
 import CustomLineChart from "../../components/charts/CustomLineChart"
 import { useDataList } from '../../hooks/useDataList';
-
+import { HiDownload } from "react-icons/hi";
 
 
 
 
 const Income = () => {
-  const { openInputModal, modal, data, infoModal, openInfoModal, token } = useContext(ExpContext);
+  const { openInputModal, modal, data, infoModal, openInfoModal, token, getInExcel } = useContext(ExpContext);
   const { data: dataList } = useDataList(token)
 
   // const handleSubmit
@@ -42,7 +42,7 @@ const Income = () => {
       <div className=" bg-white shadow-sm rounded-md p-5">
         <div className='flex justify-between w-full items-center'>
           <h2 className='font-medium'>Income Overview</h2>
-          <button className='button_secondary' onClick={() => openInputModal()}><FaPlus /> Add Income</button>
+          <button className='button_secondary text-primary' onClick={() => openInputModal()}><FaPlus /> Add Income</button>
         </div>
         <p className='text_primary mt-2 sm:mt-0'>Track your earnings over time and analyze your income trends.</p>
 
@@ -55,7 +55,10 @@ const Income = () => {
 
       {dataList?.length > 0 && (
         <div className='bg-white p-5 mt-5 rounded-md overflow-hidden shadow-sm'>
-          <h2 className='font-medium'>Income Source</h2>
+                    <div className='flex items-center justify-between'>
+            <h2 className='font-medium'>Income Source</h2>
+            <button className='button_secondary text-primary' onClick={getInExcel}><HiDownload className='w-4 h-4' /> Download</button>
+          </div>
           <div className='grid sm:grid-cols-2 gap-5 mt-5'>
             {dataList?.map((item, index) =>
               <CardDetails key={index} item={item} openInfoModal={openInfoModal} extractedDate={extractedDate} />

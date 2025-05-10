@@ -1,3 +1,4 @@
+import { extractedDate } from "../helper/helper.js";
 import {
   addIncomeByUser,
   deleteIncomeByUser,
@@ -76,9 +77,9 @@ const getIncomeInExcel = async (req, res) => {
     const incomeExcel = await getIncomesByUser(userId);
 
     const data = incomeExcel.map((item) => ({
-      Source: item.source,
+      Source: item.resource,
       Amount: item.amount,
-      Date: item.date,
+      Date: extractedDate(item.date),
     }));
 
     const wb = xlsx.utils.book_new();
@@ -87,7 +88,7 @@ const getIncomeInExcel = async (req, res) => {
     xlsx.writeFile(wb, "income_details.xlsx");
     res.download("income_details.xlsx");
   } catch (error) {
-    res.status(500).json({
+    res.status(500).json({ 
       success: false,
       message: "Server Error",
     });

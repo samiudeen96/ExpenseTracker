@@ -223,7 +223,7 @@ const ExpContextProvider = ({ children }) => {
             toast.success("Income has successfully added");
           },
           onError: () => {
-            toast.error("Fields are empty")
+            toast.error("All the Fields are required")
           }
         }
       )
@@ -243,7 +243,7 @@ const ExpContextProvider = ({ children }) => {
               toast.success("Expense has successfully added")
           },
           onError: () => {
-            toast.error("Fields are empty")
+            toast.error("All the Fields are required")
           }
         }
       )
@@ -338,6 +338,32 @@ const ExpContextProvider = ({ children }) => {
     lastSixtyDaysIncome: []
   });
 
+  const getInExcel = async () => {
+    const excelName = path.pathname === routes.income ? 'income' : 'expense'
+    try {
+      const endPoint = path.pathname === routes.income ? '/api/income/download' : '/api/expense/download'
+      const response = await API.get(endPoint, {
+        responseType: "blob"
+      });
+
+      // const result = path.pathname === routes.income ? response.
+
+      // create url for the blob 
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${excelName}_details.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      console.log(response);
+    } catch (error) {
+      console.log(`Error downloading ${excelName} `, error);
+      toast.error(`Faild to download ${excelName} details. Please try again later`)
+    }
+  }
+
 
 
   // const getTotalAmount = async () => {
@@ -405,7 +431,8 @@ const ExpContextProvider = ({ children }) => {
     showSidebar,
     setShowSidebar,
     userInfo,
-    userLoading
+    userLoading,
+    getInExcel
 
   };
 

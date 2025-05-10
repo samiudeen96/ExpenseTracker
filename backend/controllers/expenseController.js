@@ -1,8 +1,10 @@
+import { extractedDate } from "../helper/helper.js";
 import {
   addExpenseByUser,
   deleteExpenseByUser,
   getExpensesByUser,
 } from "../models/expenseModel.js";
+import xlsx from "xlsx";
 
 const addExpense = async (req, res) => {
   const userId = req.user.id;
@@ -67,4 +69,29 @@ const deleteExpense = async (req, res) => {
   }
 };
 
-export { addExpense, getExpenses, deleteExpense };
+const getExpenseInExcel = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const expenseExcel = await getExpensesByUser(userId);
+
+    const data = expenseExcel.map((item) => ({
+      category: item.resource,
+      Amount: item.amount,
+      Date: extractedDate(item.date),
+    }));
+
+    const wb = xlsx.utils.book_new();
+    const ws = xlsx.utils.json_to_sheet(data);
+    xlsx.utils.book_append_sheet(wb, ws, "expense");
+    xlsx.writeFile(wb, "expense_details.xlsx");
+    res.download("expense_details.xlsx");
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export { addExpense, getExpenses, deleteExpense, getExpenseInExcel };
