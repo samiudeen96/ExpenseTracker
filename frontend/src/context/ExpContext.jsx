@@ -25,6 +25,7 @@ const ExpContextProvider = ({ children }) => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     display_picture: "",
   };
 
@@ -37,10 +38,11 @@ const ExpContextProvider = ({ children }) => {
     name: '',
     email: '',
     display_picture: ''
-  })
+  });
+
+  const [resetToken, setResetToken] = useState("")
 
   const [showSidebar, setShowSidebar] = useState(false);
-
 
   // Whenever the token changes, update localStorage
   useEffect(() => {
@@ -51,12 +53,8 @@ const ExpContextProvider = ({ children }) => {
     }
   }, [token]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     // getUserInfo();
-  //     getTotalAmount();
-  //   }
-  // }, [token]);
+
+
 
   // useEffect(() => {
   //   if (token) {
@@ -71,6 +69,7 @@ const ExpContextProvider = ({ children }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Lodin and Signup handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -128,6 +127,61 @@ const ExpContextProvider = ({ children }) => {
       }
     }
   };
+
+  const onForgotPwdHandler = async (e) => {
+    e.preventDefault();
+    // console.log(formData.email);
+
+    try {
+      const user = {
+        email: formData.email
+      }
+
+      const response = await API.post(`${backendUrl}/api/user/forgot-password`, user);
+      console.log(response.data);
+
+      if (response.data.success) {
+        toast.success(response.data.message)
+        navigate("/");
+      }
+      // navigate("/");
+
+    } catch (error) {
+      console.log(error.message);
+      toast.success(error.response.data.message)
+    }
+
+  }
+
+  const onPwdResetHandler = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Password does not match")
+      return;
+    }
+
+    try {
+
+      const details = {
+        password: formData.password,
+        token: resetToken
+      }
+
+      const response = await API.post(`${backendUrl}/api/user/reset-password`, details);
+      toast.success(response.data.message)
+      // console.log(response.data);
+      navigate("/");
+
+
+    } catch (error) {
+      // toast.error(error.response.data.message)
+      console.log(error);
+    }
+  }
+
+
+
 
   const { data: userInfo, isLoading: userLoading } = useQuery({
     queryKey: ['userInfo'],
@@ -410,6 +464,7 @@ const ExpContextProvider = ({ children }) => {
     setFormData,
     onChangeHandler,
     onSubmitHandler,
+    onForgotPwdHandler,
     userDetails,
     menuHandler,
     openInputModal,
@@ -419,6 +474,7 @@ const ExpContextProvider = ({ children }) => {
     modalFormData,
     modalInputChangeHandler,
     onModalSubmitHandler,
+    onPwdResetHandler,
 
     // data, // info Modal properties
     infoModal,
@@ -431,7 +487,8 @@ const ExpContextProvider = ({ children }) => {
     setShowSidebar,
     userInfo,
     userLoading,
-    getInExcel
+    getInExcel,
+    setResetToken
 
   };
 

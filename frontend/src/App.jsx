@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { ExpContext } from "./context/ExpContext";
 // import LoadingWindow from "./components/LoadingWindow";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgetPwd from "./pages/Auth/ForgetPwd";
+import ResetPwd from "./pages/Auth/ResetPwd";
 
 function App() {
 
@@ -29,6 +31,9 @@ function App() {
 
         {/* Auth */}
         <Route path="/auth" element={<Auth />} />
+        <Route path="/forgot-password" element={<ForgetPwd />} />
+        <Route path="/reset-password" element={<ResetPwd />} />
+
 
         {/* Pages */}
         <Route path="/dashboard/*" element={<PrivateRoute>

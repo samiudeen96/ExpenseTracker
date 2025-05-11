@@ -21,4 +21,12 @@ const getUserById = async (id) => {
   return rows[0];
 };
 
-export { createUser, getUserByEmail, getUserById };
+const updatePwd = async (password, id) => {
+  const [result] = await db.query(
+    `UPDATE users SET password = ? WHERE id = ?`,
+    [password, id]
+  );
+  return result;
+};
+
+export { createUser, getUserByEmail, getUserById, updatePwd };

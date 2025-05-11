@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ExpContext } from "../../context/ExpContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { setTab, formData, onChangeHandler, onSubmitHandler } =
@@ -36,9 +37,16 @@ const Login = () => {
           </div>
         </div>
 
+        <div className="text-end py-3">
+          <Link to="/forgot-password" className="text-[#785bf8] cursor-pointer underline text-sm">
+            Forgot Password?
+          </Link>
+        </div>
+
+
         <button
           type="submit"
-          className="button_primary w-full mt-6 bg-[#785bf8] text-white h-13 rounded hover:bg-[#674de0] transition"
+          className="button_primary w-full mt-3 bg-[#785bf8] text-white h-13 rounded hover:bg-[#674de0] transition"
         >
           Login
         </button>
