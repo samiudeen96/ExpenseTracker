@@ -32,7 +32,7 @@ const ExpContextProvider = ({ children }) => {
   // useState
   const [tab, setTab] = useState("Login");  // tab properties in Auth page
   const [formData, setFormData] = useState(initialFormData);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [userDetails, setUserDetails] = useState({
     name: '',
     email: '',
@@ -42,12 +42,14 @@ const ExpContextProvider = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false);
 
 
-  // useEffect
+  // Whenever the token changes, update localStorage
   useEffect(() => {
-    if (!token && localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
     }
-  }, []);
+  }, [token]);
 
   // useEffect(() => {
   //   if (token) {
