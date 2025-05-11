@@ -196,7 +196,6 @@ const forgetPwd = async (req, res) => {
 
     const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
     const resetLink = `${clientUrl}/reset-password?token=${token}`;
-    
     const mailOptions = {
       from:"Expense Tracker",
       to: existingUser.email,
