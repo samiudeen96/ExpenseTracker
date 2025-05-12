@@ -207,7 +207,7 @@ const forgetPwd = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Link sent to you email successful.",
+      message: "Link has been sent to your email successfully.",
       resetLink,
     });
   } catch (error) {
