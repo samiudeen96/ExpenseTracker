@@ -144,6 +144,8 @@ const ExpContextProvider = ({ children }) => {
         toast.success(response.data.message)
         navigate("/");
       }
+
+      formData.email = ''
       // navigate("/");
 
     } catch (error) {
@@ -172,7 +174,7 @@ const ExpContextProvider = ({ children }) => {
       toast.success(response.data.message)
       // console.log(response.data);
       navigate("/");
-
+      formData.password = ''
 
     } catch (error) {
       // toast.error(error.response.data.message)
